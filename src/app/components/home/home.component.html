@@ -1,0 +1,23 @@
+<p>home works!</p>
+
+<label>Select Theme...</label>
+<select #template>
+  <option value="ionic">Ionic</option>
+  <option value="bootstrap">Bootstrap</option>
+</select>
+
+<button class="btn btn-primary"
+        (click)="theme= template.value">
+  Choose
+</button>
+
+<label> Message</label>
+<input type="text"
+       class="form-control"
+       placeholder="enter your message..."
+       #message>
+
+<ng-template appLoad
+             [theme]="theme"
+             [message]="message.value">
+</ng-template>

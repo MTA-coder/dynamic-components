@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var ThemeTemplate = /*#__PURE__*/(() => {\n  (function (ThemeTemplate) {\n    ThemeTemplate[\"Bootstrap\"] = \"bootstrap\";\n    ThemeTemplate[\"Ionic\"] = \"ionic\";\n  })(ThemeTemplate || (ThemeTemplate = {}));\n  return ThemeTemplate;\n})();","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
