@@ -8,7 +8,11 @@ import { ThemeTemplate } from '../models/theme';
 })
 export class HomeComponent {
   theme: string;
+  messageFromChild: string
+
   constructor() {
     this.theme = ThemeTemplate.Bootstrap;
+    this.messageFromChild = '';
   }
+
 }

@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, SimpleChanges, Type, ViewContainerRef } from '@angular/core';
+import { Directive, ComponentRef, Input, OnChanges, SimpleChanges, Type, ViewContainerRef, Output, EventEmitter } from '@angular/core';
 import { DynamicComponent } from 'app/components/models/dynamic-component';
 import { ThemeTemplate } from 'app/components/models/theme';
 import { BootstrapComponent } from '../themes/bootstrap/bootstrap.component';
@@ -8,10 +8,15 @@ import { IonicComponent } from '../themes/ionic/ionic.component';
   selector: '[appLoad]'
 })
 export class LoadDirective implements OnChanges {
+
   @Input() theme: ThemeTemplate;
   @Input() message: string;
 
-  constructor(public viewContainerRef: ViewContainerRef) {
+  @Output() submitted: EventEmitter<string>;
+
+  private _componentRef: ComponentRef<DynamicComponent>;
+  constructor(public _viewContainerRef: ViewContainerRef) {
+    this.submitted = new EventEmitter<string>();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -21,9 +26,10 @@ export class LoadDirective implements OnChanges {
   }
 
   loadComponent(theme: ThemeTemplate) {
-    this.viewContainerRef.clear();
-    const comRef = this.viewContainerRef.createComponent<DynamicComponent>(this.componentTypeFactory(theme));
-    comRef.instance.message = this.message;
+    this._viewContainerRef.clear();
+    this._componentRef = this._viewContainerRef.createComponent<DynamicComponent>(this.componentTypeFactory(theme));
+    this._componentRef.instance.message = this.message;
+    this._componentRef.instance.triggered$.subscribe((val: string) => this.submitted.emit(val));
   }
 
   private componentTypeFactory(type: ThemeTemplate): Type<DynamicComponent> {

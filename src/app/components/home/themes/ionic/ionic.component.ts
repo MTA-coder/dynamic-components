@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { DynamicComponent } from 'app/components/models/dynamic-component';
 
 @Component({
@@ -9,5 +9,13 @@ import { DynamicComponent } from 'app/components/models/dynamic-component';
 export class IonicComponent implements DynamicComponent {
   message: string;
 
-  constructor() { }
+  triggered$: EventEmitter<string>;
+  constructor() {
+    this.triggered$ = new EventEmitter<string>();
+  }
+
+  onSubmit() {
+    this.triggered$.emit("Hello World Ionic from Child Component");
+  }
+
 }

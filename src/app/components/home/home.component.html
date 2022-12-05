@@ -19,5 +19,8 @@
 
 <ng-template appLoad
              [theme]="theme"
-             [message]="message.value">
+             [message]="message.value"
+             (submitted)="messageFromChild = $event">
 </ng-template>
+
+<p>{{messageFromChild}}</p>
